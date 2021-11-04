@@ -1,10 +1,7 @@
 version: "3"
 services:
-
   # JAVA
   java:
-    build: ./docker/java
+    build: .
     ports:
       - "87:8080"
-    networks:
-      - all
