@@ -25,7 +25,7 @@ public class MomoController {
         PGPHelper.init(
             "./conf/tienngay-sec.asc",
             "./conf/momo-pub.asc",
-            "mservice");
+            "MT15/09/2021");
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PGPHelper.getInstance().encryptAndSign(body.getBytes(StandardCharsets.UTF_8), baos);
         return ResponseEntity.ok(baos.toString());
@@ -38,7 +38,7 @@ public class MomoController {
         PGPHelper.init(
             "./conf/tienngay-sec.asc",
             "./conf/momo-pub.asc",
-            "mservice");
+            "MT15/09/2021");
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PGPHelper.getInstance().decryptAndVerifySignature(body.getBytes(StandardCharsets.UTF_8), baos);
         return ResponseEntity.ok(baos.toString());
