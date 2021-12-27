@@ -1,20 +1,49 @@
 package com.tienngay.momopayment.controller;
 
-import com.tienngay.momopayment.dto.Encode;
+import com.tienngay.momopayment.entity.User;
 import com.tienngay.momopayment.libs.PGPHelper;
+import com.tienngay.momopayment.repository.UserRepository;
+import com.tienngay.momopayment.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 @RestController
 @RequestMapping("/")
 public class MomoController {
 
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    UserService userService;
+
     @GetMapping("")
     public ResponseEntity<String> home() {
-        return ResponseEntity.ok("123");
+        User data = User.of(
+            "tungbt",
+            "0942990834"
+        );
+        userRepository.save(data);
+        return ResponseEntity.ok("1234");
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<List<User>> user() {
+        List<User> listUser = userService.findUserByName("tungbt");
+        return ResponseEntity.ok(listUser);
+    }
+
+    @GetMapping("/user/delete")
+    public ResponseEntity<Long> userDelete(
+        @RequestParam Long id
+    ) {
+        userRepository.deleteById(id);
+        return ResponseEntity.ok(id);
     }
 
     @PostMapping("/momo/encode")
